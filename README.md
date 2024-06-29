@@ -133,3 +133,9 @@ Salida: Confirmación de guardado.<br>
     <img style="width:100%;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/DiagSec4.png" alt="Diagrama de Secuencia - caso Guardar GIF Favorito">
 </p>
 
+
+## Diagrama de Entidad - Relacion
+
+<p align="center">
+    <img style="width:100%;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/DER.png" alt="Diagrama de Entidad - Relación">
+</p>
