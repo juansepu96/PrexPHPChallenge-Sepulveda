@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
-class AuthTest extends TestCase{
+final class AuthTest extends TestCase{
     use RefreshDatabase;
 
     public function credencialesIncompletas(){

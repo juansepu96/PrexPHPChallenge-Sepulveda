@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use Laravel\Passport\Passport;
 
-class GIFFavoriteTest extends TestCase{
+final class GIFFavoriteTest extends TestCase{
     public function guardarGIFFavorito()  {
         $user = User::factory()->create();
         Passport::actingAs($user);

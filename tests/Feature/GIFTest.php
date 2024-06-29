@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use Laravel\Passport\Passport;
 
-class GIFTest extends TestCase{
+final class GIFTest extends TestCase{
     use RefreshDatabase;
     public function buscarGIFPorQuery(){
         $user = User::factory()->create();
