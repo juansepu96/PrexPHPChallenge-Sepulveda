@@ -9,13 +9,13 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - PrexPHPChallenge-Sepulveda-network
     ports:
       - "9000:9000"
     depends_on:
       - db
-
   db:
     image: mysql:8.0
     container_name: PrexPHPChallenge-Sepulveda-db
@@ -30,7 +30,19 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - PrexPHPChallenge-Sepulveda-network
-
+  nginx:
+    image: nginx:alpine
+    container_name: PrexPHPChallenge-Sepulveda-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - PrexPHPChallenge-Sepulveda-network
+    depends_on:
+      - app
 networks:
   PrexPHPChallenge-Sepulveda-network:
     driver: bridge
