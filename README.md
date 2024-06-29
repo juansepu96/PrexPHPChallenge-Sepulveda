@@ -5,10 +5,10 @@
 ## Tecnologías Utilizadas
 
 <p align="center">
-    <a href="https://php.net"><img style="width:150px;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/php.webp" alt="PHP v8.2"></a>
-    <a href="https://laravel.com"><img style="width:150px;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/laravel.png" alt="Laravel v10"></a>
-    <a href="https://mysql.com"><img style="width:150px;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/mysql.webp" alt="MySQL"></a>
-    <a href="https://www.docker.com/"><img style="width:150px;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/docker.png" alt="Docker"></a>
+    <a href="https://php.net"><img style="width:150px;padding:45px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/php.webp" alt="PHP v8.2"></a>
+    <a href="https://laravel.com"><img style="width:150px;padding:45px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/laravel.png" alt="Laravel v10"></a>
+    <a href="https://mysql.com"><img style="width:150px;padding:45px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/mysql.webp" alt="MySQL"></a>
+    <a href="https://www.docker.com/"><img style="width:150px;padding:45px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/docker.png" alt="Docker"></a>
 </p>
 
 ## PHP Challenge
@@ -31,8 +31,35 @@ El presente proyecto tiene como objetivo desarrollar el Challenge de PHP propues
 - Clonar el Proyecto
 - Levantar Docker **docker-compose up -d --build**
 - Realizar migración y seeders de la base de datos **docker-compose exec php artisan migrate --seed**
+- Para realizar los test, ejecutar el comando **docker-compose exec php artisan test**
 
 **La API está en funcionamiento en 127.0.0.1:8000**
+
+## Rutas API
+
+- Login  **POST:[/api/login]**
+- Buscar GIFS **GET:[/api/gifs]**
+- Buscar GIF por ID  **GET:[/api/gifs/{id}]**
+- Guardar GIF favorito  **POST:[/api/favorites]**
+
+## Codigos de Error HTTP
+
+- **[400]** Error de conexión con Giphy
+- **[401]** No tiene permisos
+- **[409]** Parametros inválidos
+
+## Usuario por defecto
+
+- **[admin@admin.com]** 
+- **[123456]** 
+
+## Test Unitarios / Features
+
+- **[Unit]** 
+    - AuthTest.php : Testea la ruta /login en 3 casos: Credenciales válidas, inválidas y petición incorrecta.
+- **[Features]** 
+    - GIFFavoriteTest.php : Testea agregar gif como favorito en caso válido y e petición incorrecta.
+    - GIFTest.php : Verifica la búsqueda por parámetro y por ID.
 
 ## Casos de Uso
 **Diagrama**
@@ -79,3 +106,30 @@ Actor: Usuario.<br>
 Entrada: GIF_ID (numérico, requerido), ALIAS (cadena, requerido), USER_ID (numérico, requerido).<br>
 Autenticación: El usuario debe estar logueado.<br>
 Salida: Confirmación de guardado.<br>
+
+## Diagrama de Secuencias
+
+**Caso de Uso: Login**
+
+<p align="center">
+    <img style="width:100%;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/DiagSec1.png" alt="Diagrama de Secuencia - caso Login">
+</p>
+
+**Caso de Uso: Buscar GIFs**
+
+<p align="center">
+    <img style="width:100%;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/DiagSec2.png" alt="Diagrama de Secuencia - caso Buscar GIFs">
+</p>
+
+**Caso de Uso: Buscar GIF por ID**
+
+<p align="center">
+    <img style="width:100%;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/DiagSec3.png" alt="Diagrama de Secuencia - caso Buscar GIF por ID">
+</p>
+
+**Caso de Uso: Guardar GIF Favorito**
+
+<p align="center">
+    <img style="width:100%;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/DiagSec4.png" alt="Diagrama de Secuencia - caso Guardar GIF Favorito">
+</p>
+

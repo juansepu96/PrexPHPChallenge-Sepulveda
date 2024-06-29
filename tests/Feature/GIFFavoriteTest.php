@@ -8,7 +8,7 @@ use Laravel\Passport\Passport;
 
 
 final class GIFFavoriteTest extends TestCase{
-    public function testGuardarGifFavorito():void {
+    public function testGuardarGifFavoritoValido():void {
         $user = User::factory()->create();
         Passport::actingAs($user);
         $response = $this->post('/api/favorites', [
@@ -21,5 +21,15 @@ final class GIFFavoriteTest extends TestCase{
         $response->assertJson([
             'message' => 'GIF favorito guardado exitosamente.',
         ]);
+    }
+    public function testGuardarGifFavoritoInvalido():void {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+        $response = $this->post('/api/favorites', [
+            'alias' => 'Waynes World Car GIF by Hollywood Suite',
+            'user_id' => 3,
+        ]);
+
+        $response->assertStatus(409);
     }
 }
