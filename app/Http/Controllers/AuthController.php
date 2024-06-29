@@ -6,23 +6,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Controllers\LogController;
+use Illuminate\Support\Facades\Validator;
 
+class AuthController extends Controller{
+    public function login(Request $request){
+        $messages = [
+            'email.required' => 'El campo de correo electrónico es obligatorio.',
+            'email.email' => 'El correo electrónico debe ser una dirección válida.',
+            'password.required' => 'El campo de contraseña es obligatorio.',
+            'password.string' => 'La contraseña debe texto.',
+        ];
 
-
-class AuthController extends Controller
-{
-    public function login(Request $request)
-    {
-        $request->validate([
+        $rules = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',
-        ]);
+        ],$messages);
+
+        if ($rules->fails()) {
+            return response()->json([
+                'message' => $rules->errors(),
+            ], 409);
+        }
 
         $credentials = $request->only('email', 'password');
 
-        // Utilizar el guard predeterminado de Laravel para intentar autenticar al usuario
         if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Error. Verifique las credenciales e intente nuevamente.'], 401);
+            $response = ['message' => 'Error. Verifique las credenciales e intente nuevamente.'];
+            LogController::registerLog('login',$request,401,json_encode($response));
+            return response()->json($response, 401);
         }
 
         $user = Auth::user();
@@ -39,7 +50,5 @@ class AuthController extends Controller
         LogController::registerLog('login',$request,200,json_encode($response));
 
         return response()->json($response);
-    }
-
-    
+    }    
 }

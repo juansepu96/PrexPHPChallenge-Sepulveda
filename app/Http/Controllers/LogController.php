@@ -12,7 +12,11 @@ class LogController extends Controller
 {
     public static function registerLog($service,$bodyPetition,$code,$bodyResponse)
     {
-        $user_id = Auth::user() -> id;
+        if(Auth::user()){
+            $user_id = Auth::user() -> id ;
+        }else{
+            $user_id = 0;
+        }
         $ip = $_SERVER['REMOTE_ADDR'];
         $log = new Log([
             'user_id' => $user_id,
