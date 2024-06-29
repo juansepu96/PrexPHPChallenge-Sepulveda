@@ -1,35 +1,38 @@
-version: '3.7'
+version: '3.8'
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: giphy-api-app
+    container_name: PrexPHPChallenge-Sepulveda-app
     restart: unless-stopped
     working_dir: /var/www
     volumes:
       - .:/var/www
     networks:
-      - giphy-api-network
+      - PrexPHPChallenge-Sepulveda-network
     ports:
       - "9000:9000"
     depends_on:
       - db
 
   db:
-    image: mysql:5.7
-    container_name: giphy-api-db
+    image: mysql:8.0
+    container_name: PrexPHPChallenge-Sepulveda-db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: giphy_api
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: prexchallenge
+      MYSQL_USER: juansepu96
+      MYSQL_PASSWORD: 2gc)EwXym-l_MChR
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - giphy-api-network
+      - PrexPHPChallenge-Sepulveda-network
 
 networks:
-  giphy-api-network:
+  PrexPHPChallenge-Sepulveda-network:
     driver: bridge
 
 volumes:

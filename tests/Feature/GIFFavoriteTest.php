@@ -7,7 +7,7 @@ use App\Models\User;
 use Laravel\Passport\Passport;
 
 
-final class testGIFFavoriteTest extends TestCase{
+final class GIFFavoriteTest extends TestCase{
     public function testGuardarGifFavorito():void {
         $user = User::factory()->create();
         Passport::actingAs($user);

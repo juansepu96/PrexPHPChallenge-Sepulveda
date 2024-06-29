@@ -21,4 +21,6 @@ COPY . .
 
 RUN composer install
 
+EXPOSE 9000
+
 CMD ["php-fpm"]
