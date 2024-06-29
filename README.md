@@ -53,29 +53,29 @@ El presente proyecto tiene como objetivo desarrollar el Challenge de PHP propues
 - API GIPHY
 
 **Casos de Uso**
-- Login
-Descripción: Autenticación de usuario para obtener un token.
-Actor: Usuario
-Entrada: email, password
-Salida: token con expiración de 30 minutos
+- Login <br>
+Descripción: Autenticación de usuario para obtener un token.<br>
+Actor: Usuario.<br>
+Entrada: email, password. <br>
+Salida: token con expiración de 30 minutos.<br>
 
-- Buscar GIFs
-Descripción: Buscar GIFs por una frase o término.
-Actor: Usuario
-Entrada: QUERY (cadena, requerido), LIMIT (numérico, opcional), OFFSET (numérico, opcional)
-Autenticación: El usuario debe estar logueado
-Salida: Colección con resultados de búsqueda
+- Buscar GIFs <br>
+Descripción: Buscar GIFs por una frase o término. <br>
+Actor: Usuario. <br>
+Entrada: QUERY (cadena, requerido), LIMIT (numérico, opcional), OFFSET (numérico, opcional). <br>
+Autenticación: El usuario debe estar logueado. <br>
+Salida: Colección con resultados de búsqueda.<br> 
 
-- Buscar GIF por ID
-Descripción: Obtener información de un GIF específico.
-Actor: Usuario
-Entrada: ID (numérico, requerido)
-Autenticación: El usuario debe estar logueado
-Salida: Datos del recurso consultado
+- Buscar GIF por ID <br>
+Descripción: Obtener información de un GIF específico. <br>
+Actor: Usuario.<br>
+Entrada: ID (numérico, requerido).<br>
+Autenticación: El usuario debe estar logueado.<br>
+Salida: Datos del recurso consultado.<br>
 
-- Guardar GIF Favorito
-Descripción: Almacenar un GIF favorito para un usuario.
-Actor: Usuario
-Entrada: GIF_ID (numérico, requerido), ALIAS (cadena, requerido), USER_ID (numérico, requerido)
-Autenticación: El usuario debe estar logueado
-Salida: Confirmación de guardado
+- Guardar GIF Favorito <br>
+Descripción: Almacenar un GIF favorito para un usuario.<br>
+Actor: Usuario.<br>
+Entrada: GIF_ID (numérico, requerido), ALIAS (cadena, requerido), USER_ID (numérico, requerido).<br>
+Autenticación: El usuario debe estar logueado.<br>
+Salida: Confirmación de guardado.<br>
