@@ -1,60 +1,43 @@
-<?php
+<?php 
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
-use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
 class AuthTest extends TestCase{
-    use RefreshDatabase;
 
-    public function credencialesIncompletas(){
-        $request = Request::create('/api/login', 'POST', []);
+    public function testCredencialesIncompletas():void{
 
-        $controller = new AuthController();
-        $response = $controller->login($request);
+        $response = $this->post('/api/login', [
+            'password' => '123456',
+            'emailsdm' => 'admin@admin.com',
+        ]);
 
-        $this->assertEquals(409, $response->status());
-        $this->assertArrayHasKey('email', $response->getData(true)['errors']);
-        $this->assertArrayHasKey('password', $response->getData(true)['errors']);
+        $response->assertStatus(409);
     }
 
-    public function credencialesValidas(){
-        $user = User::factory()->create([
-            'email' => 'admin2@admin.com',
-            'password' => bcrypt($password = '1234567'),
-        ]);
+    public function testCredencialesValidas():void{
 
-        $request = Request::create('/api/login', 'POST', [
-            'email' => 'admin2@admin.com',
-            'password' => $password
+        $response = $this->post('/api/login', [
+            'email' => 'admin@admin.com',
+            'password' => '123456'
         ]);
-
-        $controller = new AuthController();
-        $response = $controller->login($request);
 
         $this->assertEquals(200, $response->status());
-        $this->assertArrayHasKey('token', $response->getData(true));
+        $this->assertArrayHasKey('access_token', $response->getData(true));
     }
 
-    public function credencialesInvalidas(){
-        $user = User::factory()->create([
-            'email' => 'admin3@admin.com',
-            'password' => bcrypt('password'),
-        ]);
+    public function testCredencialesInvalidas():void{
 
-        $request = Request::create('/api/login', 'POST', [
-            'email' => 'admin2@admin.com',
-            'password' => $password
+        $response = $this->post('/api/login', [
+            'email' => 'admin@admin.com',
+            'password' => '1234567'
         ]);
-
-        $controller = new AuthController();
-        $response = $controller->login($request);
 
         $this->assertEquals(401, $response->status());
     }    

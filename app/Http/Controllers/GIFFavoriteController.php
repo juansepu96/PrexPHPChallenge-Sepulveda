@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GIFFavorite;
 use App\Http\Controllers\LogController;
+use Illuminate\Support\Facades\Validator;
+
 
 class GIFFavoriteController extends Controller{
-    public function store(Request $request){
+    public function guardarGIFFavorito(Request $request){
         try {
             $messages = [
                 'gif_id.required' => 'Debe enviar el ID del GIF.',
@@ -27,7 +29,6 @@ class GIFFavoriteController extends Controller{
             if ($rules->fails()) {
                 return response()->json([
                     'message' => $rules->errors(),
-                    'code' => 409,
                 ], 409);
             }
     
@@ -41,9 +42,9 @@ class GIFFavoriteController extends Controller{
     
             $favoriteGif->save();
     
-            LogController::registerLog('gif_save_favorite',json_encode($fullRequest),200,json_encode(['message' => 'GIF favorito guardado exitosamente'], 200));
+            LogController::registerLog('gif_save_favorite',json_encode($fullRequest),200,json_encode(['message' => 'GIF favorito guardado exitosamente.'], 200));
     
-            return response()->json(['message' => 'GIF favorito guardado exitosamente']);
+            return response()->json(['message' => 'GIF favorito guardado exitosamente.']);
     
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error al obtener los datos de Giphy'], 400);

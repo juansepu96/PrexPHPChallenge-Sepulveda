@@ -15,8 +15,7 @@ class GIFController extends Controller{
         $this->client = new Client();
         $this->apiKey = env('GIPHY_API_KEY');
     }
-
-    public function search(Request $request){
+    public function buscarGIFPorQuery(Request $request){
         try {
             $messages = [
                 'query.required' => 'Debe enviar un parámetro de búsqueda.',
@@ -71,7 +70,7 @@ class GIFController extends Controller{
         }
     }
 
-    public function getById($id){
+    public function buscarGIFPorID($id){
         try {
             $url = "http://api.giphy.com/v1/gifs/{$id}?api_key={$this->apiKey}";
 
