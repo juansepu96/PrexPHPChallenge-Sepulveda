@@ -17,8 +17,7 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        return response()->json(['error' => 'Usuario no logueado. Debe autenticarse para usar nuestros servicios.','code'=>401], 401);
+        return response()->json(['error' => 'Usuario no logueado. Debe autenticarse para usar nuestros servicios.'], 401);
     }
 
-    // Otros métodos y propiedades...
 }

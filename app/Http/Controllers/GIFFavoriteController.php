@@ -47,8 +47,8 @@ class GIFFavoriteController extends Controller{
             return response()->json(['message' => 'GIF favorito guardado exitosamente.']);
     
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Error al obtener los datos de Giphy'], 400);
             LogController::registerLog('gif_save_favorite',json_encode($fullRequest), 400, json_encode($data));
+            return response()->json(['error' => 'Error al obtener los datos de Giphy'], 400);
         }        
     }
 }

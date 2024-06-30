@@ -139,3 +139,7 @@ Salida: Confirmación de guardado.<br>
 <p align="center">
     <img style="width:100%;margin:15px" src="https://softweare.com.ar/PrexPHPChallenge-Sepulveda/DER.png" alt="Diagrama de Entidad - Relación">
 </p>
+
+## Coleccion POSTMAN
+
+La colección POSTMAN se encuentra en **postman/PrexPHPChallenge-Sepulveda.postman_collection**
