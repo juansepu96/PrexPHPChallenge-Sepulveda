@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use App\Http\Controllers\LogController;
+use App\Services\GIFService;
 use Illuminate\Support\Facades\Validator;
 
-class GIFController extends Controller{
-    protected $client;
-    protected $apiKey;
 
-    public function __construct(){
-        $this->client = new Client();
+
+class GIFController extends Controller{
+    private $gifService;
+
+    public function __construct(GIFService $gifService)
+    {
+        $this->gifService = $gifService;
         $this->apiKey = env('GIPHY_API_KEY');
     }
+   
     public function buscarGIFPorQuery(Request $request){
-        try {
+       try {
             $messages = [
                 'query.required' => 'Debe enviar un parámetro de búsqueda.',
                 'query.string' => 'El parámetro debe ser texto.',
@@ -36,11 +38,9 @@ class GIFController extends Controller{
                     'code' => 409,
                 ], 409);
             }
-
             $query = $request->input('query');
             $limit = $request->input('limit', 10);
             $offset = $request->input('offset', 0);
-            
             $fullRequest = [
                 'query' => [
                     'api_key' => $this->apiKey,
@@ -50,21 +50,9 @@ class GIFController extends Controller{
                 ]
             ];
 
-
-            $url = "https://api.giphy.com/v1/gifs/search?api_key=";
-            $response = $this->client->request('GET', $url,$fullRequest);
+            return $this->gifService->buscarGIFPorQuery($fullRequest);
     
-            $data = json_decode($response->getBody(), true);
-    
-            LogController::registerLog('gif_search', json_encode($fullRequest), $response->getStatusCode(), json_encode($data));
-    
-            if ($data['meta']["status"] == 200) {
-                return response()->json($data);
-            } else {
-                return response()->json(['error' => 'Error al obtener los datos de Giphy'], 400);
-            }
-    
-        } catch (\Exception $e) {
+       } catch (\Exception $e) {
             return response()->json(['error' => 'Error al obtener los datos de Giphy'], 400);
             LogController::registerLog('gif_search',json_encode($fullRequest), 400, json_encode($data));
         }
@@ -72,16 +60,7 @@ class GIFController extends Controller{
 
     public function buscarGIFPorID($id){
         try {
-            $url = "http://api.giphy.com/v1/gifs/{$id}?api_key={$this->apiKey}";
-
-            $response = $this->client->request('GET', $url);
-
-            $data = json_decode($response->getBody(), true);
-
-            LogController::registerLog('gif_get_by_id', $id, $response->getStatusCode(), json_encode($data));
-
-            return response()->json($data);
-
+            return $this->gifService->buscarGIFPorID($id,$this->apiKey);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error al obtener los datos de Giphy'], 400);
             LogController::registerLog('gif_get_by_id', $id, 400, json_encode($data));

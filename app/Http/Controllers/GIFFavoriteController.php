@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\GIFFavorite;
-use App\Http\Controllers\LogController;
 use Illuminate\Support\Facades\Validator;
+use App\Services\GIFFavoriteService;
 
 
 class GIFFavoriteController extends Controller{
+    private $gifFavoriteService;
+
+    public function __construct(GIFFavoriteService $gifFavoriteService)
+    {
+        $this->gifFavoriteService = $gifFavoriteService;
+        $this->apiKey = env('GIPHY_API_KEY');
+    }
     public function guardarGIFFavorito(Request $request){
         try {
             $messages = [
@@ -37,14 +43,7 @@ class GIFFavoriteController extends Controller{
                 'alias' => $request->input('alias'),
                 'user_id' => $request->input('user_id'),
             ];
-    
-            $favoriteGif = new GIFFavorite($fullRequest);
-    
-            $favoriteGif->save();
-    
-            LogController::registerLog('gif_save_favorite',json_encode($fullRequest),200,json_encode(['message' => 'GIF favorito guardado exitosamente.'], 200));
-    
-            return response()->json(['message' => 'GIF favorito guardado exitosamente.']);
+            return $this->gifFavoriteService->guardarGIFFavorito($fullRequest);           
     
         } catch (\Exception $e) {
             LogController::registerLog('gif_save_favorite',json_encode($fullRequest), 400, json_encode($data));

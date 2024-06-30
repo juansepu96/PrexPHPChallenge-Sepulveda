@@ -143,3 +143,20 @@ Salida: Confirmación de guardado.<br>
 ## Coleccion POSTMAN
 
 La colección POSTMAN se encuentra en **postman/PrexPHPChallenge-Sepulveda.postman_collection**
+
+
+## Dockerfile
+
+El archivo se encuentra en **./Dockerfile**
+
+## Principio SOLID
+
+- Utilicé Controladores y Servicios para las rutas de la API con el objetivo de cumplir con el principio SOLID. 
+
+## Principio DRY
+
+- Aplicado gracias a Passport utilizando el Middleware para validar un grupo de rutas sin duplicar código.
+
+## Principio Tell Don’t Ask.
+
+- Aplicado al verificar el estado del controlador Auth en el servicio AuthService y no en el AuthController.
