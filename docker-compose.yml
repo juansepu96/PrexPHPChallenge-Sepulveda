@@ -4,48 +4,36 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: PrexPHPChallenge-Sepulveda-app
+    image: laravel-app
+    container_name: laravel_app
     restart: unless-stopped
     working_dir: /var/www
     volumes:
       - .:/var/www
-      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - PrexPHPChallenge-Sepulveda-network
     ports:
       - "9000:9000"
-    depends_on:
-      - db
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_KEY=base64:randomkey
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=prex-challange
+      - DB_USERNAME=root
+      - DB_PASSWORD=
   db:
     image: mysql:8.0
-    container_name: PrexPHPChallenge-Sepulveda-db
+    container_name: mysql_db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: prexchallenge
-      MYSQL_USER: juansepu96
-      MYSQL_PASSWORD: 2gc)EwXym-l_MChR
-      MYSQL_ROOT_PASSWORD: 
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: prex-challange
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+    ports:
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-    networks:
-      - PrexPHPChallenge-Sepulveda-network
-  nginx:
-    image: nginx:alpine
-    container_name: PrexPHPChallenge-Sepulveda-nginx
-    restart: unless-stopped
-    ports:
-      - "8000:80"
-    volumes:
-      - .:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-    networks:
-      - PrexPHPChallenge-Sepulveda-network
-    depends_on:
-      - app
-networks:
-  PrexPHPChallenge-Sepulveda-network:
-    driver: bridge
-
 volumes:
   db_data:

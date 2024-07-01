@@ -18,7 +18,7 @@ El presente proyecto tiene como objetivo desarrollar el Challenge de PHP propues
 ## Requisitos necesarios
 
 - PHP 8.2^
-- Composer
+- Composer 2.7^
 - Laravel 10^
 - MySQL 
 - Docker 
@@ -28,12 +28,14 @@ El presente proyecto tiene como objetivo desarrollar el Challenge de PHP propues
 
 ## Despligue del proyecto
 
-- Clonar el Proyecto
+- Clonar el Proyecto **[git clone https://github.com/juansepu96/PrexPHPChallenge-Sepulveda.git]**
+- Copiar el archivo .env.example a .env **[cp .env.example .env]**
+- Generar la clave de la aplicación **[docker run --rm -v $(pwd):/var/www -w /var/www laravel_app php artisan key:generate]**
 - Levantar Docker **docker-compose up -d --build**
 - Realizar migración y seeders de la base de datos **docker-compose exec php artisan migrate --seed**
 - Para realizar los test, ejecutar el comando **docker-compose exec php artisan test**
 
-**La API está en funcionamiento en 127.0.0.1:8000**
+**La API estará en funcionamiento en localhost:8000**
 
 ## Rutas API
 
